@@ -1,4 +1,4 @@
-module requesthelper
+module github.com/aruncs31s/requesthelper
 
 go 1.25.0
 
