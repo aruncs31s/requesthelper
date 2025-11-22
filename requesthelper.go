@@ -6,11 +6,14 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func GetJSONData[T any](c *gin.Context) (T, error) {
+func GetJSONData[T any](c *gin.Context) (*T, error) {
 	var result T
-
-	return result, nil
+	if err := c.ShouldBindJSON(&result); err != nil {
+		return nil, err
+	}
+	return &result, nil
 }
+
 func GetLimitAndOffset(c *gin.Context) (int, int) {
 	limit, _ := strconv.Atoi(c.DefaultQuery("page-size", "10"))
 	page, _ := strconv.Atoi(c.DefaultQuery("page", "1"))
